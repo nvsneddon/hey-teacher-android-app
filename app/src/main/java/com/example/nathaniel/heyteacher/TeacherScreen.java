@@ -3,12 +3,11 @@ package com.example.nathaniel.heyteacher;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import java.net.URISyntaxException;
 import java.util.Random;
 
-import io.socket.IOAcknowledge;
-import io.socket.IOCallback;
-import io.socket.SocketIO;
-import io.socket.SocketIOException;
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,6 +19,7 @@ public class TeacherScreen extends AppCompatActivity {
     public boolean checkNumberAvailability(int roomNr){
         return true;
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
