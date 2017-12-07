@@ -8,8 +8,12 @@ import android.widget.Toast;
 import java.net.URISyntaxException;
 import java.util.Random;
 
+import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class TeacherScreen extends AppCompatActivity {
 
@@ -32,6 +36,15 @@ public class TeacherScreen extends AppCompatActivity {
         }
 
         socket.connect();
+
+
+        socket.on("test", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                String response = (String) args[0];
+                Toast.makeText(TeacherScreen.this, response, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         try {
             Thread.sleep(1000);
@@ -60,5 +73,14 @@ public class TeacherScreen extends AppCompatActivity {
 
     public void testButton(View view){
         socket.emit("button", "Test");
+        JSONObject res = new JSONObject();
+        try {
+            res.put("Name", "Nathaniel");
+            res.put("Message", "This is my message");
+        }
+        catch (JSONException e){
+            e.printStackTrace();
+        }
+        socket.emit("Message", res.toString());
     }
 }
