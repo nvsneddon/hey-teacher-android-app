@@ -11,9 +11,6 @@ import java.util.Random;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 public class TeacherScreen extends AppCompatActivity {
 
     private int roomNumber;
@@ -22,7 +19,6 @@ public class TeacherScreen extends AppCompatActivity {
     public boolean checkNumberAvailability(int roomNr){
         return true;
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +59,6 @@ public class TeacherScreen extends AppCompatActivity {
     }
 
     public void testButton(View view){
-        socket.emit("Button", "Test");
+        socket.emit("button", "Test");
     }
 }
