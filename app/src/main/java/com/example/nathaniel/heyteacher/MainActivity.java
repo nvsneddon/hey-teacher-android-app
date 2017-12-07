@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void createRoom(View view){
         //Toast.makeText(this, "Create room", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, TeacherScreen.class);
+        Intent intent = new Intent(this, TeacherScreen2.class);
         intent.putExtra("name", nameField.getText());
         startActivity(intent);
     }

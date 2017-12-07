@@ -14,7 +14,7 @@ import com.github.nkzawa.socketio.client.Socket;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class TeacherScreen extends AppCompatActivity {
+public class TeacherScreen2 extends AppCompatActivity {
 
     private int roomNumber;
     private Socket socket;
@@ -23,11 +23,10 @@ public class TeacherScreen extends AppCompatActivity {
         return true;
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_teacher_screen);
+        setContentView(R.layout.activity_teacher_screen2);
 
         try {
             socket = IO.socket("http://54.148.39.15:8080");
@@ -63,6 +62,6 @@ public class TeacherScreen extends AppCompatActivity {
     }
 
     public void testButton(View view){
-        socket.emit("Button", "Test");
+        socket.emit("button", "Test");
     }
 }
