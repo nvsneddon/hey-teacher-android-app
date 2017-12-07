@@ -12,12 +12,13 @@ import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class TeacherScreen extends AppCompatActivity {
 
-    private int roomNumber;
+    private int roomNumber = -1;
     private Socket socket;
 
     public boolean checkNumberAvailability(int roomNr){
@@ -37,12 +38,11 @@ public class TeacherScreen extends AppCompatActivity {
 
         socket.connect();
 
-
         socket.on("test", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
-                String response = (String) args[0];
-                Toast.makeText(TeacherScreen.this, response, Toast.LENGTH_SHORT).show();
+                //JSONArray obj = (JSONArray) args[0];
+                System.out.println("THiawuifhuier");
             }
         });
 
@@ -56,12 +56,16 @@ public class TeacherScreen extends AppCompatActivity {
         } else{
             Toast.makeText(this, "Not Connected", Toast.LENGTH_SHORT).show();
         }
-        do {
-            Random rand = new Random();
-            roomNumber = rand.nextInt(10000);
-        } while(!checkNumberAvailability(roomNumber));
+
+        if(roomNumber == -1) {
+            do {
+                Random rand = new Random();
+                roomNumber = rand.nextInt(10000);
+            } while (!checkNumberAvailability(roomNumber));
+        }
 
         socket.emit("room", roomNumber);
+
     }
 
     @Override
