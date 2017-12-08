@@ -44,14 +44,7 @@ public class TeacherScreen extends AppCompatActivity {
             } while (!checkNumberAvailability(roomNumber));
             socket.emit("room", roomNumber);
         }
-
-        socket.on("test", new Emitter.Listener() {
-            @Override
-            public void call(Object... args) {
-                //JSONArray obj = (JSONArray) args[0];
-                System.out.println("This is working now!");
-            }
-        });
+        
     }
 
     @Override
