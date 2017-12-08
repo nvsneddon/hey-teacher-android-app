@@ -8,8 +8,13 @@ import android.widget.Toast;
 import java.net.URISyntaxException;
 import java.util.Random;
 
+import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class TeacherScreen extends AppCompatActivity {
 
@@ -31,34 +36,35 @@ public class TeacherScreen extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        socket.connect();
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if(!socket.connected()){
+            socket.connect();
+            do {
+                Random rand = new Random();
+                roomNumber = rand.nextInt(10000);
+            } while (!checkNumberAvailability(roomNumber));
+            socket.emit("room", roomNumber);
         }
-        if(socket.connected()){
-            Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
-        } else{
-            Toast.makeText(this, "Not Connected", Toast.LENGTH_SHORT).show();
-        }
-        do {
-            Random rand = new Random();
-            roomNumber = rand.nextInt(10000);
-        } while(!checkNumberAvailability(roomNumber));
-
-        socket.emit("room", roomNumber);
+        
     }
 
     @Override
     protected void onDestroy(){
         //insert disconnecting code here
+        //socket.emit("Disconnect", roomNumber);
         socket.disconnect();
         super.onDestroy();
     }
 
     public void testButton(View view){
         socket.emit("button", "Test");
+        JSONObject res = new JSONObject();
+        try {
+            res.put("Name", "Nathaniel");
+            res.put("Message", "This is my message");
+        }
+        catch (JSONException e){
+            e.printStackTrace();
+        }
+        socket.emit("Message", res.toString());
     }
 }
