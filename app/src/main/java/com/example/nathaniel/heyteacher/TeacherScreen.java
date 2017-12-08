@@ -42,7 +42,7 @@ public class TeacherScreen extends AppCompatActivity {
                 Random rand = new Random();
                 roomNumber = rand.nextInt(10000);
             } while (!checkNumberAvailability(roomNumber));
-            socket.emit("room", roomNumber);
+            socket.emit("teacher-room", roomNumber);
         }
         
     }
@@ -67,6 +67,6 @@ public class TeacherScreen extends AppCompatActivity {
             e.printStackTrace();
         }
         System.out.println(res.toString());
-        socket.emit("Message", res.toString());
+        //socket.emit("Message", res.toString());
     }
 }
