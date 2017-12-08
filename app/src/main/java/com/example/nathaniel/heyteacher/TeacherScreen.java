@@ -51,12 +51,13 @@ public class TeacherScreen extends AppCompatActivity {
     protected void onDestroy(){
         //insert disconnecting code here
         //socket.emit("Disconnect", roomNumber);
+        socket.emit("teacher-disconnect", roomNumber);
         socket.disconnect();
         super.onDestroy();
     }
 
     public void testButton(View view){
-        socket.emit("button", "Test");
+        //socket.emit("button", "Test");
         JSONObject res = new JSONObject();
         try {
             res.put("Name", "Nathaniel");
@@ -65,6 +66,7 @@ public class TeacherScreen extends AppCompatActivity {
         catch (JSONException e){
             e.printStackTrace();
         }
+        System.out.println(res.toString());
         socket.emit("Message", res.toString());
     }
 }
