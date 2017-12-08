@@ -50,6 +50,7 @@ public class TeacherScreen extends AppCompatActivity {
     @Override
     protected void onDestroy(){
         //insert disconnecting code here
+        //socket.emit("Disconnect", roomNumber);
         socket.disconnect();
         super.onDestroy();
     }
