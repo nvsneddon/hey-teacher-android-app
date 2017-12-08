@@ -18,7 +18,7 @@ import org.json.JSONObject;
 
 public class TeacherScreen extends AppCompatActivity {
 
-    private int roomNumber = -1;
+    private int roomNumber;
     private Socket socket;
 
     public boolean checkNumberAvailability(int roomNr){
@@ -36,36 +36,22 @@ public class TeacherScreen extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        socket.connect();
+        if(!socket.connected()){
+            socket.connect();
+            do {
+                Random rand = new Random();
+                roomNumber = rand.nextInt(10000);
+            } while (!checkNumberAvailability(roomNumber));
+            socket.emit("room", roomNumber);
+        }
 
         socket.on("test", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
                 //JSONArray obj = (JSONArray) args[0];
-                System.out.println("THiawuifhuier");
+                System.out.println("This is working now!");
             }
         });
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        if(socket.connected()){
-            Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
-        } else{
-            Toast.makeText(this, "Not Connected", Toast.LENGTH_SHORT).show();
-        }
-
-        if(roomNumber == -1) {
-            do {
-                Random rand = new Random();
-                roomNumber = rand.nextInt(10000);
-            } while (!checkNumberAvailability(roomNumber));
-        }
-
-        socket.emit("room", roomNumber);
-
     }
 
     @Override
