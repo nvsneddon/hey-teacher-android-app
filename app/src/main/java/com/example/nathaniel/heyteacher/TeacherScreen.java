@@ -20,6 +20,7 @@ public class TeacherScreen extends AppCompatActivity {
 
     private int roomNumber;
     private Socket socket;
+    private String teacherName;
 
     public boolean checkNumberAvailability(int roomNr){
         return true;
@@ -29,6 +30,7 @@ public class TeacherScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_screen);
+        teacherName = getIntent().getStringExtra("name");
 
         try {
             socket = IO.socket("http://54.148.39.15:8080");
