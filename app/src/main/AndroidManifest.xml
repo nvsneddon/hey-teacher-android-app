@@ -18,11 +18,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".TeacherScreen"
-            android:label="@string/title_activity_teacher_screen"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".TeacherScreen2" />
         <activity android:name=".StudentActivity" />
         <activity android:name=".TeacherActivity"></activity>
     </application>
