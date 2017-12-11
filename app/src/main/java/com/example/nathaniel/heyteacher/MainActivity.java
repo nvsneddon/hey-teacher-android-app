@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void joinRoom(View view){
         //Toast.makeText(this, "Join Room", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this, StudentActivity.class));
+        Intent intent = new Intent(this, StudentActivity.class);
+        intent.putExtra("name", nameField.getText());
+        startActivity(intent);
     }
 }
