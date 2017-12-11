@@ -23,7 +23,8 @@
             android:label="@string/title_activity_teacher_screen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".TeacherScreen2" />
-        <activity android:name=".StudentActivity"></activity>
+        <activity android:name=".StudentActivity" />
+        <activity android:name=".TeacherActivity"></activity>
     </application>
 
 </manifest>
