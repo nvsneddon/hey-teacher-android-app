@@ -20,7 +20,6 @@ import java.util.Random;
 
 public class TeacherActivity extends AppCompatActivity {
 
-    private int roomNumber;
     private int roomCode;
     private Socket socket;
     private String teacherName;
@@ -55,7 +54,6 @@ public class TeacherActivity extends AppCompatActivity {
             public void call(Object... args) {
                 JSONObject obj = (JSONObject)args[0];
                 try{
-                    roomNumber = obj.getInt("roomNr");
                     roomCode = obj.getInt("roomCode");
                 }
                 catch (JSONException e){
@@ -82,7 +80,7 @@ public class TeacherActivity extends AppCompatActivity {
     protected void onDestroy(){
         //insert disconnecting code here
         //socket.emit("Disconnect", roomNumber);
-        socket.emit("teacher-disconnect", roomNumber);
+        socket.emit("teacher-disconnect", roomCode);
         socket.disconnect();
         super.onDestroy();
     }
@@ -98,7 +96,7 @@ public class TeacherActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         System.out.println(res.toString());
-        System.out.println("The room number is " + roomNumber + " and the room code is " + roomCode);
+        System.out.println("The room code is " + roomCode);
         //socket.emit("Message", res.toString());
     }
 }
