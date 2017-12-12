@@ -19,6 +19,7 @@ import java.util.Random;
 public class TeacherActivity extends AppCompatActivity {
 
     private int roomNumber;
+    private int roomCode;
     private Socket socket;
     private String teacherName;
 
@@ -36,23 +37,30 @@ public class TeacherActivity extends AppCompatActivity {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+        socket.on(Socket.EVENT_CONNECT, new Emitter.Listener(){
 
-        if(!socket.connected()){
-            socket.connect();
-            do {
-                Random rand = new Random();
-                roomNumber = rand.nextInt(10000);
-            } while (!checkNumberAvailability(roomNumber));
-            socket.emit("teacher-room", roomNumber);
-        }
-        socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
             @Override
-            public void call(Object... args) {
-                Log.i("TeacherActivity", "It worked!!!!1");
-                //Toast.makeText(TeacherActivity.this, "This has worked", Toast.LENGTH_SHORT).show();
+            public void call(Object... args){
+                Log.i("Teacheractivity", "Connected");
+                socket.emit("teacher-connect", teacherName);
             }
         });
-
+        socket.on("get-roomcode", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                JSONObject obj = (JSONObject)args[0];
+                try{
+                    roomNumber = obj.getInt("roomNr");
+                    roomCode = obj.getInt("roomCode");
+                }
+                catch (JSONException e){
+                    e.printStackTrace();
+                }
+                //Toast.makeText(TeacherActivity.this, "Ready to go", Toast.LENGTH_SHORT).show();
+                System.out.println("Ready to go");
+            }
+        });
+        socket.connect();
     }
 
     @Override
@@ -75,6 +83,7 @@ public class TeacherActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         System.out.println(res.toString());
+        System.out.println("The room number is " + roomNumber + " and the room code is " + roomCode);
         //socket.emit("Message", res.toString());
     }
 }
