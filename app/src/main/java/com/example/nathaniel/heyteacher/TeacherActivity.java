@@ -2,8 +2,11 @@ package com.example.nathaniel.heyteacher;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
+import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 
@@ -42,6 +45,13 @@ public class TeacherActivity extends AppCompatActivity {
             } while (!checkNumberAvailability(roomNumber));
             socket.emit("teacher-room", roomNumber);
         }
+        socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                Log.i("TeacherActivity", "It worked!!!!1");
+                //Toast.makeText(TeacherActivity.this, "This has worked", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
