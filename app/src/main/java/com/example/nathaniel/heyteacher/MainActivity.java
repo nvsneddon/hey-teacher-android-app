@@ -23,14 +23,14 @@ public class MainActivity extends AppCompatActivity {
     public void createRoom(View view){
         //Toast.makeText(this, "Create room", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, TeacherActivity.class);
-        intent.putExtra("name", nameField.getText());
+        intent.putExtra("name", nameField.getText().toString());
         startActivity(intent);
     }
 
     public void joinRoom(View view){
         //Toast.makeText(this, "Join Room", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, StudentActivity.class);
-        intent.putExtra("name", nameField.getText());
+        intent.putExtra("name", nameField.getText().toString());
         startActivity(intent);
     }
 }
