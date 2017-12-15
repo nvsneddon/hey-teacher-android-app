@@ -62,11 +62,12 @@ public class TeacherActivity extends AppCompatActivity {
                 //Toast.makeText(TeacherActivity.this, "Ready to go", Toast.LENGTH_SHORT).show();
 
                 //text.setText(String.valueOf(roomCode));
-                System.out.println(roomCode);
+                System.out.println("The room code is " + roomCode);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         text.setText(String.valueOf(roomCode));
+                        Toast.makeText(TeacherActivity.this, "Connected", Toast.LENGTH_SHORT).show();
                     }
                 });
                 //text.setText(roomCode);
