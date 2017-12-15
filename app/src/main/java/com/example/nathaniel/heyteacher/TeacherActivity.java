@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.net.URISyntaxException;
+import java.util.Locale;
 import java.util.Random;
 
 public class TeacherActivity extends AppCompatActivity {
@@ -25,16 +26,13 @@ public class TeacherActivity extends AppCompatActivity {
     private String teacherName;
     private TextView text;
 
-    public boolean checkNumberAvailability(int roomNr){
-        return true;
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher);
         teacherName = getIntent().getStringExtra("name");
         text = (TextView)findViewById(R.id.room_code);
-        //Log.i("Connection", teacherName);
+        Log.i("Big ultra test", teacherName);
 
         try {
             socket = IO.socket("http://54.148.39.15:8080");
@@ -42,10 +40,9 @@ public class TeacherActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         socket.on(Socket.EVENT_CONNECT, new Emitter.Listener(){
-
             @Override
             public void call(Object... args){
-                Log.i("Teacheractivity", "Connected");
+                Log.i("Teacheractivity", "Connected by " + teacherName);
                 socket.emit("teacher-connect", teacherName);
             }
         });
@@ -66,8 +63,8 @@ public class TeacherActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        text.setText(String.valueOf(roomCode));
-                        Toast.makeText(TeacherActivity.this, "Connected", Toast.LENGTH_SHORT).show();
+                        text.setText(String.format(Locale.US,"%04d", roomCode));
+                        //Toast.makeText(TeacherActivity.this, "Connected", Toast.LENGTH_SHORT).show();
                     }
                 });
                 //text.setText(roomCode);
@@ -82,6 +79,8 @@ public class TeacherActivity extends AppCompatActivity {
         //insert disconnecting code here
         //socket.emit("Disconnect", roomNumber);
         socket.emit("teacher-disconnect", roomCode);
+        Log.i("OnDestroy", "It has been done!");
+        socket.off();
         socket.disconnect();
         super.onDestroy();
     }
